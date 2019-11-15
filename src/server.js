@@ -1,17 +1,30 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer } = require('apollo-server-express')
+const schema = require("./schema")
+const config = require('../config')
 
-const typeDefs = gql`
-    type Query{
-        helloWorld: String
-    }
-`
-const resolvers = {
-    Query: {
-        helloWorld: () => "hello world"
-    }
+module.exports = {
+    graphql: ((app) => {
+        const server = new ApolloServer({
+            schema: schema,
+            context: ({ req, connection }) => {
+                if (connection)
+                    return connection.context
+                else
+                    return {
+                        conn: {
+
+                        },
+                        token: req.headers && req.headers.authorization
+                    }
+            },
+            playground: {
+                tabs: [{
+                    endpoint: '/graphql'
+                }]
+            }
+        })
+        server.applyMiddleware({ app, path: '/graphql' })
+        return server
+    })
+
 }
-const server = new ApolloServer({ typeDefs, resolvers })
-
-server.listen().then(({ url }) => {
-    console.log(`Server running at ${url}`)
-})

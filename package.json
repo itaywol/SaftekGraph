@@ -3,17 +3,21 @@
     "@types/graphql": "^14.5.0",
     "@types/node": "^12.12.7",
     "apollo-server": "^2.9.9",
+    "apollo-server-express": "^2.9.9",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
+    "graphql-type-json": "^0.3.0",
+    "lodash": "^4.17.15",
     "mongoose": "^5.7.11",
     "nodemon": "^1.19.4"
   },
   "name": "graph",
   "version": "1.0.0",
-  "main": "src/server,js",
+  "main": "index.js",
   "author": "Itay Wolfish <wo.itay@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon index.js"
   }
 }
